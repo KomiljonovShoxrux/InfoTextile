@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>O'zbekistonda To'qimachilik Sanoati</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>O'zbekistonda To'qimachilik Sanoati</h1>
+
+<nav>
+    <ul>
+        <li><a href="#about">To'qimachilik haqida</a></li>
+        <li><a href="#news">Yangiliklar</a></li>
+        <li><a href="#gallery">Galereya</a></li>
+        <li><a href="#feedback">Foydalanuvchi fikrlari</a></li>
+        <li><a href="#contact">Izoh qoldirish</a></li>
+    </ul>
+</nav>
+
+<section id="about">
+    <h2>To'qimachilik sanoati haqida</h2>
+    <p>O'zbekistonda to'qimachilik sanoati iqtisodiyotning muhim tarmoqlaridan biridir. Paxta yetishtirishdan tortib, tayyor mahsulotgacha bo‘lgan zanjir rivojlangan. Eng ko‘p ishlab chiqariladigan mahsulotlar: paxta mato, trikotaj, ip-gazlama, tayyor kiyim-kechak, to‘qilgan gilamlar.</p>
+    <p>Yirik to'qimachilik korxonalari: "Uztex Group", "Textile Technologies Group", "BCT Cluster" va boshqalar.</p>
+</section>
+
+<section id="news">
+    <h2>So'nggi yangiliklar</h2>
+    <ul>
+        <li>2025-yilda O'zbekiston to'qimachilik mahsulotlarini eksport qilishni 4 milliard dollarga yetkazishni rejalashtirmoqda.</li>
+        <li>Yangi tayyor kiyim ishlab chiqarish fabrikasi Andijonda ishga tushdi.</li>
+    </ul>
+</section>
+<section id="gallery">
+    <h2>Galereya</h2>
+    <div id="gallery-list" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;"></div>
+
+</section>
+
+
+<section id="feedback">
+    <h2>Foydalanuvchi fikrlari</h2>
+    <ul id="message-list"></ul>
+</section>
+
+<section id="contact">
+    <h2>Izoh qoldiring</h2>
+    <form id="inquiry-form">
+        <input name="name" placeholder="Ismingiz" required><br>
+        <input name="email" placeholder="Email" required><br>
+        <textarea name="message" placeholder="Savolingiz yoki taklifingiz" required></textarea><br>
+        <button type="submit">Yuborish</button>
+    </form>
+    <div id="response-msg"></div>
+</section>
+
+<script>
+    document.getElementById("inquiry-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const form = e.target;
+
+        const data = {
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value
+        };
+
+        fetch("http://localhost:8080/api/inquiry", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(() => {
+                document.getElementById("response-msg").innerText = "Xabar yuborildi!";
+                form.reset();
+                loadMessages();
+            })
+            .catch(() => alert("Xatolik yuz berdi!"));
+    });
+
+    function loadMessages() {
+        fetch("http://localhost:8080/api/inquirys")
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Serverdan noto‘g‘ri javob keldi: " + res.status);
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (!Array.isArray(data)) {
+                    throw new Error("Kutilgan massiv emas: " + JSON.stringify(data));
+                }
+
+                const list = document.getElementById("message-list");
+                list.innerHTML = "";
+
+                data.forEach(msg => {
+                    const li = document.createElement("li");
+                    li.innerText = `${msg.name}: ${msg.message}`;
+                    list.appendChild(li);
+                });
+            })
+            .catch(err => {
+                console.error("Xatolik:", err);
+                document.getElementById("message-list").innerText = "Xabarlarni yuklashda xatolik.";
+            });
+    }
+    function loadGallery() {
+        fetch("http://localhost:8080/api/images")
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById("gallery-list");
+                container.innerHTML = "";
+                data.forEach(img => {
+                    const div = document.createElement("div");
+                    div.innerHTML = `
+                    <img src="http://localhost:8080${img.url}" width="60%" style="border-radius: 8px; ">
+                    <br>
+                    <small>${img.caption}</small>
+                `;
+                    container.appendChild(div);
+                });
+            });
+    }
+
+
+    window.onload = () => {
+        loadMessages();
+        loadGallery();
+    }
+</script>
+</body>
+</html>

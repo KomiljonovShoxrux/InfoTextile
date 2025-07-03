@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - Rasm Yuklash</title>
+</head>
+<body>
+<h2>Admin Panel</h2>
+
+<form id="upload-form" enctype="multipart/form-data">
+    <label>Rasm tanlang:</label><br>
+    <input type="file" name="file" required><br><br>
+
+    <label>Rasm izohi (caption):</label><br>
+    <input type="text" name="caption" placeholder="Izoh..." required><br><br>
+
+    <button type="submit">Yuklash</button>
+</form>
+
+<div id="status"></div>
+
+<h3>Yuklangan rasmlar:</h3>
+<div id="admin-gallery"></div>
+
+<script>
+    document.getElementById("upload-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+
+        fetch("http://localhost:8080/api/images/upload", {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("status").innerText = "Rasm muvaffaqiyatli yuklandi!";
+                form.reset();
+                loadGallery();
+            })
+            .catch(() => {
+                document.getElementById("status").innerText = "Xatolik yuz berdi!";
+            });
+    });
+
+    function loadGallery() {
+        fetch("http://localhost:8080/api/images")
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById("admin-gallery");
+                container.innerHTML = "";
+                data.forEach(img => {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<img src="http://localhost:8080${img.url}" width="150"><br><small>${img.caption}</small>`;
+                    container.appendChild(div);
+                });
+            });
+    }
+
+    window.onload = loadGallery;
+</script>
+</body>
+</html>
