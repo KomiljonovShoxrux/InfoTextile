@@ -1,57 +1,57 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-nav {
-    background: #004080;
-    padding: 10px;
-}
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-header {
-    background: #e0e0e0;
-    padding: 30px;
-    text-align: center;
-}
-section {
-    padding: 20px;
-    background: white;
-    margin: 20px;
-    border-radius: 8px;
-}
-.slider img {
-    width: 100%;
-    max-width: 600px;
-    display: none;
-}
-.slider img.active {
-    display: block;
-}
-form input, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-form button {
-    padding: 10px 20px;
-    background: #004080;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+/*body {*/
+/*    font-family: 'Arial', sans-serif;*/
+/*    background-color: #f4f4f4;*/
+/*    color: #333;*/
+/*    line-height: 1.6;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+/*nav {*/
+/*    background: #004080;*/
+/*    padding: 10px;*/
+/*}*/
+/*nav ul {*/
+/*    list-style: none;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    gap: 20px;*/
+/*}*/
+/*nav ul li a {*/
+/*    color: white;*/
+/*    text-decoration: none;*/
+/*    font-weight: bold;*/
+/*}*/
+/*header {*/
+/*    background: #e0e0e0;*/
+/*    padding: 30px;*/
+/*    text-align: center;*/
+/*}*/
+/*section {*/
+/*    padding: 20px;*/
+/*    background: white;*/
+/*    margin: 20px;*/
+/*    border-radius: 8px;*/
+/*}*/
+/*.slider img {*/
+/*    width: 100%;*/
+/*    max-width: 600px;*/
+/*    display: none;*/
+/*}*/
+/*.slider img.active {*/
+/*    display: block;*/
+/*}*/
+/*form input, form textarea {*/
+/*    width: 100%;*/
+/*    padding: 10px;*/
+/*    margin: 5px 0;*/
+/*    border-radius: 4px;*/
+/*    border: 1px solid #ccc;*/
+/*}*/
+/*form button {*/
+/*    padding: 10px 20px;*/
+/*    background: #004080;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*}*/

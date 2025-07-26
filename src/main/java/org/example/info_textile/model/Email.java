@@ -1,38 +1,35 @@
 package org.example.info_textile.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
 @Entity
-public class Inquiry {
+public class Email {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonProperty("name")
     private String name;
-    @JsonProperty("email")
-    private String email;
-    @JsonProperty("message")
+    private String phone;
     private String message;
-    @CreatedDate
-    private LocalDateTime created_date=LocalDateTime.now();
+    private LocalDateTime createdDate;
+    private String adminReply;
 
-
-    public Inquiry(Long id, String name, String email, String message, LocalDateTime created_date) {
+    public Email(Long id, String name, String phone, String message, LocalDateTime createdDate, String adminReply) {
         this.id = id;
         this.name = name;
-        this.email = email;
+        this.phone = phone;
         this.message = message;
-        this.created_date = created_date;
+        this.createdDate = createdDate;
+        this.adminReply = adminReply;
     }
 
-    public Inquiry() {
+    public Email() {
     }
 
     public Long getId() {
@@ -51,12 +48,12 @@ public class Inquiry {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getMessage() {
@@ -67,23 +64,31 @@ public class Inquiry {
         this.message = message;
     }
 
-    public LocalDateTime getCreated_date() {
-        return created_date;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreated_date(LocalDateTime created_date) {
-        this.created_date = created_date;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getAdminReply() {
+        return adminReply;
+    }
+
+    public void setAdminReply(String adminReply) {
+        this.adminReply = adminReply;
     }
 
     @Override
     public String toString() {
-        return "Inquiry{" +
+        return "Email{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
                 ", message='" + message + '\'' +
-                ", created_date=" + created_date +
+                ", createdDate=" + createdDate +
+                ", adminReply='" + adminReply + '\'' +
                 '}';
     }
 }
-
